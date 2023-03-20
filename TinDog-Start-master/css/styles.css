@@ -29,7 +29,7 @@ p {
 }
 
 .container-fluid {
-    padding: 3% 15%;
+    padding: 3% 15% 7%;
 }
 
 /* navigation bar */
@@ -58,19 +58,38 @@ p {
 }
 
 /* title image */
+.img-div {
+    position: relative;
+}
 .title-img {
     width: 60%;
     transform: rotate(25deg);
+    position: absolute;
+    right: 30%;
+}
+
+@media (max-width: 1028px) {
+    #title {
+        text-align: center;
+    }
+
+    .title-img {
+        position: static;
+        transform: rotate(0);
+    }
 }
 
 /* features */
 #features {
     padding: 7% 15%;
+    background: #fff;
+    position: relative;
+    /* z-index: 1; */
 }
 
 .feature-box {
     text-align: center;
-    padding: 5%;
+    padding: 4.5%;
 }
 
 .feature-icons {
@@ -120,4 +139,32 @@ p {
 
 .pricing-column {
     padding: 3% 2%;
+}
+
+/* cta */
+#cta {
+    background-color: #ff4c68;
+    padding: 5% 20%;
+    text-align: center;
+}
+
+.cta-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    font-family: "Ubuntu";
+    line-height: 1.5;
+}
+
+#footer {
+    padding: 7% 15%;
+    text-align: center;
+}
+
+.footer-icons {
+    padding-bottom: 2%;
+}
+
+.f-icons {
+    padding: 5px;
 }
