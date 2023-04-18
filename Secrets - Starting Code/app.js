@@ -6,7 +6,7 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./models/user');
-
+const md5 = require('md5');
 
 const port = 3000 || process.env.PORT;
 
@@ -37,7 +37,7 @@ app.route('/login')
 
 .post(async (req, res) => {
     const email = req.body.email;
-    const password = req.body.password;
+    const password = md5(req.body.password);
 
     const user = await User.findOne({ email: email });
 
@@ -60,7 +60,7 @@ app.route('/register')
 
 .post((req, res) => {
     const email = req.body.email;
-    const password = req.body.password;
+    const password = md5(req.body.password);
 
     const newUser = new User({ email, password });
 
