@@ -5,7 +5,6 @@ const app = express();
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const mongooseEncryption = require('mongoose-encryption');
 const User = require('./models/user');
 
 
