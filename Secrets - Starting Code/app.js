@@ -82,6 +82,17 @@ app.get('/secrets', (req, res) => {
     }
 });
 
+//logout user
+
+app.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+    });
+    res.redirect('/');
+});
+
 //register routes
 
 app.route('/register')
@@ -91,7 +102,7 @@ app.route('/register')
 })
 
 .post((req, res) => {
-    User.register({username: req.body.email}, req.body.password, function(err, user) {
+    User.register({username: req.body.username}, req.body.password, function(err, user) {
         if (err) {
             console.log('error registering the user.');
             console.log(err);
@@ -121,7 +132,7 @@ app.route('/register')
 
 app.post('/login', (req, res) => {
     const user = new User({
-        username: req.body.email,
+        username: req.body.username,
         password: req.body.password
     });
     req.login(user, function(err){
@@ -129,7 +140,7 @@ app.post('/login', (req, res) => {
             console.log(err);
         } else {
             passport.authenticate('local')(req, res, function(){
-                res.redirect('secrets');
+                res.redirect('/secrets');
             });
         }
     });
