@@ -13,7 +13,7 @@ const User = require('./models/user');
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
+// const findOrCreate = require('mongoose-findorcreate');
 
 const port = 3000 || process.env.PORT;
 
@@ -45,11 +45,14 @@ passport.use(User.createStrategy());
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
-  
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-        done(err, user);
-    });
+
+passport.deserializeUser(async function(id, done) {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch(err) {
+        done(err, null);
+    }
 });
 
 passport.use(new GoogleStrategy({
@@ -79,7 +82,7 @@ app.get("/auth/google/secrets",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("/");
+    res.redirect("/secrets");
   });
 
 //login routes
